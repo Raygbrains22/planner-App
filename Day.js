@@ -39,4 +39,38 @@ $(document).ready(function() {
         });
     }
 
-})
+     // Save event to local storage
+     function saveEvent(hour) {
+        const eventText = $('#hour-' + hour).val();
+        localStorage.setItem('hour-' + hour, eventText);
+    }
+
+    // Handle save button clicks
+    $('.saveBtn').on('click', function() {
+        const hour = $(this).siblings('.description').attr('id').split('-')[1];
+        saveEvent(hour);
+    });
+
+    // Update timeblock colors based on past, present, and future
+    function updateColors() {
+        const currentHour = dayjs().hour();
+
+        $('.time-block').each(function() {
+            const blockHour = parseInt($(this).find('.description').attr('id').split('-')[1]);
+
+            if (blockHour < currentHour) {
+                $(this).addClass('past').removeClass('present future');
+            } else if (blockHour === currentHour) {
+                $(this).addClass('present').removeClass('past future');
+            } else {
+                $(this).addClass('future').removeClass('past present');
+            }
+        });
+    }
+
+    loadEvents();
+    updateColors();
+    setInterval(updateColors, 60000); // Update colors every minute
+});
+
+

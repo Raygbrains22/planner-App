@@ -26,4 +26,17 @@ $(document).ready(function() {
         $('.container').append(row);
     }
 
+    // Create timeblocks
+    businessHours.forEach(hourBlock => createTimeblock(hourBlock.hour, hourBlock.display));
+
+    // Load events from local storage
+    function loadEvents() {
+        businessHours.forEach(hourBlock => {
+            const eventText = localStorage.getItem('hour-' + hourBlock.hour);
+            if (eventText) {
+                $('#hour-' + hourBlock.hour).val(eventText);
+            }
+        });
+    }
+
 })

@@ -14,4 +14,16 @@ $(document).ready(function() {
         { hour: 16, display: "4 PM" },
         { hour: 17, display: "5 PM" }
     ];
+
+     // Function to create a timeblock row
+     function createTimeblock(hour, display) {
+        const row = $('<div class="row time-block"></div>');
+        const hourCol = $('<div class="col-md-1 hour"></div>').text(display);
+        const textAreaCol = $('<textarea class="col-md-10 description"></textarea>').attr('id', 'hour-' + hour);
+        const saveBtnCol = $('<button class="col-md-1 saveBtn"><i class="fas fa-save"></i></button>');
+
+        row.append(hourCol, textAreaCol, saveBtnCol);
+        $('.container').append(row);
+    }
+
 })
